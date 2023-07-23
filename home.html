@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Weather App</title>
+    <style>
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+            width: 30%;
+            background-color: rgb(39, 39, 39);
+            color: rgb(255, 255, 255);
+            display: flex;
+            justify-content: center;
+            margin: auto;
+            margin-top: 200px;
+            font-family: sans-serif;
+            text-align: center;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .container {
+            padding: 2px 16px;
+        }
+       
+    </style>
+</head>
+
+<body>
+    <div class="card">
+
+        <div class="container">
+            <h3><b>{%location%}, {%country%}</b></h3>
+            <p id="date">Wed || sun</p>
+            <h1>{%tempval%}&deg; C</h1>
+            <h3>Max {%tempmax%}&deg; C Min {%tempmin%}&deg; C</h3>
+        </div>
+    </div>
+    <script>
+
+        const date= document.getElementById("date");
+
+        const getday = () => {
+            const weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+            const d = new Date();
+            let day = weekday[d.getDay()];
+            return day;
+        };
+
+        const gettime = () => {
+            var months = [
+                'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'
+            ]
+            const currenttime = new Date();
+            var month = months[currenttime.getMonth()];
+            var date = currenttime.getDate();
+
+            let hours = currenttime.getHours()
+            let mins = currenttime.getMinutes()
+            let periods = "AM";
+            if(hours > 11) {
+                periods = "PM";
+                if (hours > 12) {
+                    hours -= 12;
+                }
+            }
+            if(mins < 10) {
+                mins = "0" + mins
+            };
+            return `${month} ${date} | ${hours}:${mins} ${periods}`;
+        };
+        date.innerHTML= getday()+" | "+ gettime();
+    
+    </script>
+</body>
+
+</html>
